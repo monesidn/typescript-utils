@@ -1,6 +1,6 @@
 {
   "name": "@monesidn/typescript-utils",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A collection of small utilities that I use almost everyday in TS projects.",
   "scripts": {
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/monesidn/dmonesi-utils-ts.git"
+    "url": "git+https://github.com/monesidn/typescript-utils.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/monesidn/dmonesi-utils-ts/issues"
+    "url": "https://github.com/monesidn/typescript-utils/issues"
   },
-  "homepage": "https://github.com/monesidn/dmonesi-utils-ts#readme",
+  "homepage": "https://github.com/monesidn/typescript-utils",
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
