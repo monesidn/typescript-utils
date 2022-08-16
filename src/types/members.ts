@@ -1,6 +1,4 @@
-
-export type AdditionCheckFn = (obj: any) => boolean;
-
+import { Fn, isFunction } from "./functions";
 
 /**
  * Check that `target` object has a member named `name`. If the member
@@ -11,13 +9,10 @@ export type AdditionCheckFn = (obj: any) => boolean;
  * as first argument.
  * @returns `true` if the member exists.
  */
-export const hasMember = (obj: any, name: string, extraCheck?: AdditionCheckFn) => {
-    if (name in obj)
-        return extraCheck ? extraCheck(obj[name]) : true;
+export const hasMember = (obj: any, name: string, extraCheck?: Fn<any, boolean>) => {
+    if (name in obj) return extraCheck ? extraCheck(obj[name]) : true;
     return false;
 };
-
-export const isFunction = (obj: any): obj is Function => typeof obj === 'function';
 
 /**
  * Check that `target` object has a method (a function member) named `name`

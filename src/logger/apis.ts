@@ -7,14 +7,18 @@ export enum LogLevel {
     WARN,
     DEBUG,
     TRACE
-};
+}
 
+/**
+ * Map object that associate each level name to the corresponding
+ * LogLevel enum element.
+ */
 export const LogLevelByName: Record<string, LogLevel> = {
-    'OFF': LogLevel.OFF,
-    'ERROR': LogLevel.ERROR,
-    'WARN': LogLevel.WARN,
-    'DEBUG': LogLevel.DEBUG,
-    'TRACE': LogLevel.TRACE
+    OFF: LogLevel.OFF,
+    ERROR: LogLevel.ERROR,
+    WARN: LogLevel.WARN,
+    DEBUG: LogLevel.DEBUG,
+    TRACE: LogLevel.TRACE
 };
 
 /**
@@ -24,20 +28,21 @@ export const LogLevelByName: Record<string, LogLevel> = {
 export type LogRecordGenerator = () => string;
 
 /**
- * Main interface used to output messages.
+ * Defines a logger that can be retrived from the LoggerManager.
+ * This is the main interface used to output messages.
  */
 export interface Logger {
     log(level: LogLevel, record: string | LogRecordGenerator): void;
     isLevelEnabled(level: LogLevel): boolean;
 
     error(record: string | LogRecordGenerator): void;
-    errorEnabled() : boolean;
+    errorEnabled(): boolean;
     warn(record: string | LogRecordGenerator): void;
-    warnEnabled() : boolean;
+    warnEnabled(): boolean;
     debug(record: string | LogRecordGenerator): void;
-    debugEnabled() : boolean;
+    debugEnabled(): boolean;
     trace(record: string | LogRecordGenerator): void;
-    traceEnabled() : boolean;
+    traceEnabled(): boolean;
 }
 
 /**

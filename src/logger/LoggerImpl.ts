@@ -1,19 +1,18 @@
-import { Logger, LogLevel, LogRecordGenerator, OutputDevice } from './apis';
+import { Logger, LogLevel, LogRecordGenerator, OutputDevice } from "./apis";
 
-
+/**
+ * Actual implementation of the logger interface. This is not meant to be created from
+ * users. The LoggerManager is responsible for creating and mantaning instances of this
+ * class.
+ */
 export class LoggerImpl implements Logger {
-    constructor(
-        public level: LogLevel,
-        public category: string,
-        public output: OutputDevice
-    ) {
-    }
+    constructor(public level: LogLevel, public category: string, public output: OutputDevice) {}
 
     log(level: LogLevel, record: string | LogRecordGenerator): void {
         if (level <= this.level) {
             const ts = new Date().getTime();
             const prefix = `${ts} - ${this.category} - `;
-            if (typeof record === 'string') {
+            if (typeof record === "string") {
                 this.output.print(level, prefix + record);
             } else {
                 this.output.print(level, prefix + record());
@@ -58,5 +57,3 @@ export class LoggerImpl implements Logger {
         return this.level;
     }
 }
-
-

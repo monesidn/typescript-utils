@@ -1,14 +1,21 @@
-import { LogLevelByName } from '.';
-import { LogLevel } from './apis';
-import { assertConsoleNotHijacked, ConsoleHijacker } from './ConsoleHijacker';
-import { LoggerImpl } from './LoggerImpl';
-import { ConsoleOutputDevice } from './OutputDevice';
+import { LogLevelByName } from ".";
+import { LogLevel } from "./apis";
+import { assertConsoleNotHijacked, ConsoleHijacker } from "./ConsoleHijacker";
+import { LoggerImpl } from "./LoggerImpl";
+import { ConsoleOutputDevice } from "./OutputDevice";
 
 /**
- * Library entry point. This is a singleton object that is default exported by
+ * Logger library entry point. This is a singleton object that is default exported by
  * the library.
+ * This class is focused on being easy to use and a quick way to log anything. Just retrieve
+ * a logger with an appropiate category and start logging messages.
+ * @example
+ * ```typescript
+ * const log = LoggerManager.getLogger("example");
+ * log.debug("Hello World");
+ * ```
  */
-class LoggerManagerClass {
+export class LoggerManagerClass {
     private consoleHijacker?: ConsoleHijacker;
 
     private output = new ConsoleOutputDevice();
@@ -27,23 +34,20 @@ class LoggerManagerClass {
     }
 
     private pickLevelFor(category: string) {
-        if (category === '')
-            return this.defaultLevel;
+        if (category === "") return this.defaultLevel;
 
         const categoryTokens = category.split(/\./g);
         let bestLevel = this.defaultLevel;
         for (let i = 1; i <= categoryTokens.length; i++) {
-            const level = this.levels.get(categoryTokens.slice(0, i).join('.'));
-            if (level !== undefined)
-                bestLevel = level;
+            const level = this.levels.get(categoryTokens.slice(0, i).join("."));
+            if (level !== undefined) bestLevel = level;
         }
         return bestLevel;
     }
 
     public getLogger(category: string) {
         const logger = this.loggers.get(category);
-        if (logger)
-            return logger;
+        if (logger) return logger;
 
         return this.createLogger(category, this.pickLevelFor(category));
     }
@@ -62,10 +66,10 @@ class LoggerManagerClass {
      */
     public updateLoggers() {
         const i = this.loggers.values();
+        // eslint-disable-next-line no-constant-condition
         while (true) {
             const { done, value } = i.next();
-            if (done)
-                break;
+            if (done) break;
 
             value.level = this.pickLevelFor(value.category);
         }
@@ -82,13 +86,12 @@ class LoggerManagerClass {
      * @param levels -
      */
     public parseLevelFromString(levels: string) {
-        if (!levels)
-            return;
+        if (!levels) return;
 
-        const categs = levels.split(';');
+        const categs = levels.split(";");
         let updated = 0;
         for (const cat of categs) {
-            const [category, level] = cat.split(':');
+            const [category, level] = cat.split(":");
             if (!category || !level) {
                 console.error(`Ignoring category specification ${cat}`);
                 continue;
@@ -102,9 +105,10 @@ class LoggerManagerClass {
     }
 
     public hijackConsole() {
-        const cat = 'app.console';
-        console.log(`Console is being hijacked. If you can't find ` +
-                    `messages probabily the log category "${cat}" is disabled`);
+        const cat = "app.console";
+        console.log(
+            `Console is being hijacked. If you can't find messages probably the log category "${cat}" is disabled`
+        );
 
         this.consoleHijacker = new ConsoleHijacker(this.getLogger(cat));
     }
@@ -119,4 +123,7 @@ class LoggerManagerClass {
     }
 }
 
+/**
+ * Singleton LoggerManager instance.
+ */
 export const LoggerManager = new LoggerManagerClass();
