@@ -19,10 +19,14 @@ jobs:
                   version-command: |
                       cat ./package.json | jq --raw-output '.version'
 
-            - name: Use Node.js 18
+            - name: Use Node.js 20
               uses: actions/setup-node@v3
               with:
-                  node-version: 18
+                  node-version: 20
+                  cache: "yarn"
+                  cache-dependency-path: |
+                      package-lock.json
+                      yarn.lock
 
             - name: Install deps
               if: ${{ startsWith(steps.tag-creation.outputs.tag, 'v') }}

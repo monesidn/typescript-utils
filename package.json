@@ -1,6 +1,6 @@
 {
   "name": "@monesidn/typescript-utils",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A collection of small utilities that I use almost everyday in TS projects.",
   "scripts": {
     "test:runInBand": "jest --runInBand",
