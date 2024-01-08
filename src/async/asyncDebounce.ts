@@ -1,4 +1,4 @@
-import defer, { DeferObj } from "./defer_";
+import defer, { DeferObj } from "./defer";
 import delay from "./delay";
 
 export interface AsyncDebounceOptions {
