@@ -1,4 +1,4 @@
-import { Fn, isFunction } from "./functions";
+import Fn from "../functions/Fn";
 
 /**
  * Check that `target` object has a member named `name`. If the member
@@ -9,17 +9,8 @@ import { Fn, isFunction } from "./functions";
  * as first argument.
  * @returns `true` if the member exists.
  */
-export const hasMember = (obj: any, name: string, extraCheck?: Fn<any, boolean>) => {
+const hasMember = (obj: any, name: string, extraCheck?: Fn<any, boolean>) => {
     if (name in obj) return extraCheck ? extraCheck(obj[name]) : true;
     return false;
 };
-
-/**
- * Check that `target` object has a method (a function member) named `name`
- * @param obj -
- * @param name -
- * @returns `true` if the method exists.
- */
-export const hasMethod = (obj: any, name: string) => {
-    return hasMember(obj, name, isFunction);
-};
+export default hasMember;

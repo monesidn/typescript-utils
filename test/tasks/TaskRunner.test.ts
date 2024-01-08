@@ -1,6 +1,7 @@
-import { describe, test, expect } from "@jest/globals";
-import { delay, TaskRunner } from "../../src/async";
-import { LoggerManager, LogLevel } from "../../src/logger";
+import LoggerManager from "../../src/logger/LoggerManager";
+import LogLevel from "../../src/logger/LogLevel";
+import delay from "../../src/async/delay";
+import TaskRunner from "../../src/tasks/TaskRunner";
 
 LoggerManager.setDefaultLevel(LogLevel.WARN);
 LoggerManager.updateLoggers();
@@ -15,7 +16,7 @@ describe("Task Runner general behavior", () => {
         });
 
         await tr.waitForCompletion();
-        expect(onComplete).toBeCalled();
+        expect(onComplete.mock.calls).toHaveLength(1);
     });
 
     test("50 Async tasks are successfully executed", async () => {
@@ -29,7 +30,7 @@ describe("Task Runner general behavior", () => {
         }
 
         await tr.waitForCompletion();
-        expect(onComplete).toBeCalledTimes(50);
+        expect(onComplete.mock.calls).toHaveLength(50);
     });
 
     test("Synchronously tasks submitted are exectued in following ticks", async () => {
@@ -37,9 +38,9 @@ describe("Task Runner general behavior", () => {
         const tr = new TaskRunner();
         tr.submitTask(async () => onComplete());
 
-        expect(onComplete).not.toBeCalled();
+        expect(onComplete.mock.calls).toHaveLength(0);
         await tr.waitForCompletion();
-        expect(onComplete).toBeCalled();
+        expect(onComplete.mock.calls).toHaveLength(1);
     });
 });
 
@@ -60,8 +61,8 @@ describe("Task Runner events", () => {
         tr.events.taskCompleted.on(onCompleteListener);
 
         await tr.waitForCompletion();
-        expect(onComplete).toBeCalledTimes(taskCount);
-        expect(onCompleteListener).toBeCalledTimes(taskCount);
+        expect(onComplete.mock.calls).toHaveLength(taskCount);
+        expect(onCompleteListener.mock.calls).toHaveLength(taskCount);
     });
 
     test("Event listeners are notified in the right order", async () => {
@@ -79,11 +80,11 @@ describe("Task Runner events", () => {
         }
         tr.events.taskCompleted.on(onCompleteListener);
         tr.events.taskCompleted.on(() => {
-            expect(onComplete).toBeCalledTimes(onCompleteListener.mock.calls.length);
+            expect(onComplete.mock.calls).toHaveLength(onCompleteListener.mock.calls.length);
         });
 
         await tr.waitForCompletion();
-        expect(onComplete).toBeCalledTimes(taskCount);
-        expect(onCompleteListener).toBeCalledTimes(taskCount);
+        expect(onComplete.mock.calls).toHaveLength(taskCount);
+        expect(onCompleteListener.mock.calls).toHaveLength(taskCount);
     });
 });

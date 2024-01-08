@@ -1,4 +1,5 @@
-import { EmptyFn, Fn } from "../types/functions";
+import EmptyFn from "../functions/EmptyFn";
+import Fn from "../functions/Fn";
 
 /**
  * A generic event listener function
@@ -47,7 +48,7 @@ export type UnregisterFn = EmptyFn;
  * }
  * ```
  */
-export class EventsSource<T> {
+class EventsSource<T> {
     private listeners: EventListener<T>[] = [];
 
     /**
@@ -134,19 +135,6 @@ export class EventsSource<T> {
     }
 
     /**
-     * Like `prependListener` but register a once listener.
-     * @param listener A listener function.
-     * @returns An unregister function. Sometimes it's easier to have a dedicated function
-     * to unregister than keeping the listener reference around
-     */
-    public prependOnceListener(listener: EventListener<T>) {
-        return this.prependListener((...data) => {
-            listener(...data);
-            this.removeListener(listener);
-        });
-    }
-
-    /**
      * Emits a single event by notifying all registered listeners. Listeners
      * are invoked one after the other synchronously. If an event listener
      * throws an error processing stops and the error is propagated.
@@ -158,3 +146,5 @@ export class EventsSource<T> {
         }
     }
 }
+
+export default EventsSource;

@@ -1,25 +1,4 @@
-/**
- * Possible log levels.
- */
-export enum LogLevel {
-    OFF,
-    ERROR,
-    WARN,
-    DEBUG,
-    TRACE
-}
-
-/**
- * Map object that associate each level name to the corresponding
- * LogLevel enum element.
- */
-export const LogLevelByName: Record<string, LogLevel> = {
-    OFF: LogLevel.OFF,
-    ERROR: LogLevel.ERROR,
-    WARN: LogLevel.WARN,
-    DEBUG: LogLevel.DEBUG,
-    TRACE: LogLevel.TRACE
-};
+import LogLevel from "./LogLevel";
 
 /**
  * Any logger method can also take a function as argument. The function is
@@ -31,7 +10,7 @@ export type LogRecordGenerator = () => string;
  * Defines a logger that can be retrived from the LoggerManager.
  * This is the main interface used to output messages.
  */
-export interface Logger {
+interface Logger {
     log(level: LogLevel, record: string | LogRecordGenerator): void;
     isLevelEnabled(level: LogLevel): boolean;
 
@@ -45,11 +24,4 @@ export interface Logger {
     traceEnabled(): boolean;
 }
 
-/**
- * This interface allows for pluggable print behaviour. The default implementation
- * writes to the global console object but by providing a custom one you can
- * override that.
- */
-export interface OutputDevice {
-    print(level: LogLevel, text: string): void;
-}
+export default Logger;

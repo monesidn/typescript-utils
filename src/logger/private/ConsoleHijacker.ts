@@ -1,5 +1,6 @@
-import { Logger, LogLevel } from "./apis";
-import { getGlobals } from "../types";
+import getGlobals from "../../misc/getGlobals";
+import LogLevel from "../LogLevel";
+import Logger from "../Logger";
 
 const globals = getGlobals();
 

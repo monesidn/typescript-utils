@@ -1,5 +1,5 @@
-import { GeneratorFn } from "../../types/functions";
-import { Task } from "./api";
+import GeneratorFn from "../functions/GeneratorFn";
+import Task from "./Task";
 
 let taskId = 0;
 
@@ -7,7 +7,7 @@ let taskId = 0;
  * Simple implementation of the Task interface that takes only a callback
  * and execute it when it's time. The task name is automatically generated.
  */
-export class SimpleTask implements Task {
+class SimpleTask implements Task {
     private _id = taskId++;
 
     /**
@@ -24,3 +24,5 @@ export class SimpleTask implements Task {
         await this.fn();
     }
 }
+
+export default SimpleTask;

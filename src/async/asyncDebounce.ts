@@ -1,5 +1,5 @@
-import { Defer } from "./Defer";
-import { delay } from "./promises";
+import defer, { DeferObj } from "./defer";
+import delay from "./delay";
 
 export interface AsyncDebounceOptions {
     /**
@@ -44,11 +44,11 @@ export interface AsyncDebounceOptions {
  * @param fn The function to wrap. Each call to the wrapper will result in a call to this function.
  * @returns
  */
-export const asyncDebounce = <Args extends any[], T>(
+const asyncDebounce = <Args extends any[], T>(
     fn: (...args: [AbortSignal, ...Args]) => Promise<T>,
     options: AsyncDebounceOptions = {}
 ) => {
-    let output: Defer<T> | undefined;
+    let output: DeferObj<T> | undefined;
     let abortPrev: AbortController | undefined;
 
     /**
@@ -67,7 +67,7 @@ export const asyncDebounce = <Args extends any[], T>(
         }
 
         if (!output) {
-            output = new Defer<T>();
+            output = defer<T>();
         }
 
         const abort = new AbortController();
@@ -100,3 +100,5 @@ export const asyncDebounce = <Args extends any[], T>(
         return output.promise;
     };
 };
+
+export default asyncDebounce;

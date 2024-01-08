@@ -5,6 +5,8 @@ import { WriteStream, ReadStream } from "fs";
  * @param stream
  * @returns
  */
-export const closeFsStream = async (stream: WriteStream | ReadStream) => {
+const closeFsStream = async (stream: WriteStream | ReadStream) => {
     return new Promise((resolve) => stream.close(resolve));
 };
+
+export default closeFsStream;

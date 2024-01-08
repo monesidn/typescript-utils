@@ -1,6 +1,9 @@
-module.exports = {
-    preset: 'ts-jest',
-    testEnvironment: 'node',
+/** @type {import('jest').Config} */
+const config = {
+    preset: "ts-jest",
+    testEnvironment: "node",
     collectCoverage: true,
-    roots: ['test']
+    roots: ["test"]
 };
+
+module.exports = config;

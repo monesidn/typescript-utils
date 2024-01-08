@@ -4,7 +4,7 @@ import { createHash } from "crypto";
 /**
  * A node stream that computes the md5 of data passing through it.
  */
-export class Md5PassThroughStrean extends Transform {
+class Md5PassThroughStream extends Transform {
     hash = createHash("md5");
 
     _transform(chunk: any, encoding: BufferEncoding, callback: TransformCallback) {
@@ -13,3 +13,5 @@ export class Md5PassThroughStrean extends Transform {
         callback();
     }
 }
+
+export default Md5PassThroughStream;

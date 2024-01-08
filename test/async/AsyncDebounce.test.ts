@@ -1,7 +1,7 @@
-import { describe, test, expect } from "@jest/globals";
-import { delay } from "../../src/async";
-import { LoggerManager, LogLevel } from "../../src/logger";
-import { asyncDebounce } from "../../src/async";
+import LoggerManager from "../../src/logger/LoggerManager";
+import LogLevel from "../../src/logger/LogLevel";
+import asyncDebounce from "../../src/async/asyncDebounce";
+import delay from "../../src/async/delay";
 
 LoggerManager.setDefaultLevel(LogLevel.WARN);
 LoggerManager.updateLoggers();

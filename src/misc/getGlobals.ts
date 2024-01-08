@@ -1,10 +1,9 @@
-
 /**
  * Safe way to retrieve the global object which depends on environment.
  * @returns
  */
-export const getGlobals = () => {
-    if (typeof window !== 'undefined') {
+const getGlobals = () => {
+    if (typeof window !== "undefined") {
         // We are in a browser so the global object is window
         return window;
     } else {
@@ -12,3 +11,5 @@ export const getGlobals = () => {
         return global;
     }
 };
+
+export default getGlobals;

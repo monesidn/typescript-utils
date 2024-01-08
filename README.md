@@ -2,6 +2,11 @@
 
 A collection of small utilities that I use almost everyday in TS projects. The best way to explore the project is checking the generated typedoc documentation.
 
+## ESM
+
+Since version 2.0.0 the project is using ESM as package system. This makes tree shaking work out of the box
+with no further issue.
+
 ## API
 
 You can explore the generated API definition here:

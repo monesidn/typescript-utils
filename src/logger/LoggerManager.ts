@@ -1,8 +1,8 @@
-import { LogLevelByName } from ".";
-import { LogLevel } from "./apis";
-import { assertConsoleNotHijacked, ConsoleHijacker } from "./ConsoleHijacker";
-import { LoggerImpl } from "./LoggerImpl";
-import { ConsoleOutputDevice } from "./OutputDevice";
+import ConsoleOutputDevice from "./ConsoleOutputDevice";
+import LogLevel from "./LogLevel";
+import LogLevelByName from "./private/LogLevelByName";
+import { assertConsoleNotHijacked, ConsoleHijacker } from "./private/ConsoleHijacker";
+import { LoggerImpl } from "./private/LoggerImpl";
 
 /**
  * Logger library entry point. This is a singleton object that is default exported by
@@ -126,4 +126,6 @@ export class LoggerManagerClass {
 /**
  * Singleton LoggerManager instance.
  */
-export const LoggerManager = new LoggerManagerClass();
+const LoggerManager = new LoggerManagerClass();
+
+export default LoggerManager;

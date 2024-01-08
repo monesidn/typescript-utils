@@ -1,4 +1,6 @@
-import { Logger, LogLevel, LogRecordGenerator, OutputDevice } from "./apis";
+import LogLevel from "../LogLevel";
+import Logger, { LogRecordGenerator } from "../Logger";
+import OutputDevice from "../OutputDevice";
 
 /**
  * Actual implementation of the logger interface. This is not meant to be created from

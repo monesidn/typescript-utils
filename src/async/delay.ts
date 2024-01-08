@@ -31,7 +31,9 @@
  * }
  * ```
  */
-export const delay = <T = undefined>(delay?: number, value?: T): Promise<T> => {
+const delay = <T = undefined>(delay?: number, value?: T): Promise<T> => {
     // I had to use `as any` otherwise typescript won't allow me to make `value` optional.
     return new Promise<T>((resolve) => setTimeout(() => resolve(value as any), delay));
 };
+
+export default delay;

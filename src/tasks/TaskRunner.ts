@@ -1,11 +1,22 @@
-import { EventsSource } from "../../events/EventsSource";
-import { LoggerManager } from "../../logger";
-import { GeneratorFn, isFunction } from "../../types/functions";
-import { delay } from "../promises";
-import { Task, TaskRunnerOptions } from "./api";
-import { SimpleTask } from "./SimpleTask";
+import delay from "../async/delay";
+import EventsSource from "../events/EventsSource";
+import GeneratorFn from "../functions/GeneratorFn";
+import isFunction from "../functions/isFunction";
+import LoggerManager from "../logger/LoggerManager";
+import SimpleTask from "./SimpleTask";
+import Task from "./Task";
 
 const log = LoggerManager.getLogger("it.dmonesi.util.async.TaskRunner");
+
+/**
+ * Configuration options for the TaskRunner
+ */
+export interface TaskRunnerOptions {
+    /**
+     * How many workers should be spawned at the same time?
+     */
+    maxConcurrentTask?: number;
+}
 
 const defaultOpts: TaskRunnerOptions = {
     maxConcurrentTask: 10
@@ -78,7 +89,7 @@ class TaskRunnerWorker {
  * }
  * ```
  */
-export class TaskRunner {
+class TaskRunner {
     private _activeTasks = 0;
     private _lastWorkerId = 0;
 
@@ -169,3 +180,5 @@ export class TaskRunner {
         this._spawnWorker();
     }
 }
+
+export default TaskRunner;
