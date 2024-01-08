@@ -6,8 +6,8 @@
     "test:runInBand": "jest --runInBand",
     "test": "jest",
     "build:docs": "typedoc",
-    "build": "tsc",
-    "clean": "rimraf dist",
+    "build": "tsc -b ./tsconfig.release.json && tsc-alias -p tsconfig.release.json",
+    "clean": "fse emptyDir dist",
     "lint": "eslint src/* --ext .ts",
     "prepublishOnly": "npm run build && npm run test"
   },
