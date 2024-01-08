@@ -1,4 +1,4 @@
-import defer from "../../src/async/defer";
+import defer from "../../src/async/defer_";
 import LoggerManager from "../../src/logger/LoggerManager";
 import LogLevel from "../../src/logger/LogLevel";
 
