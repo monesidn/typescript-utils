@@ -1,6 +1,12 @@
 {
     "entryPoints": [
-        "src/index.ts"
+        "src/async/*.ts",
+        "src/events/*.ts",
+        "src/functions/*.ts",
+        "src/logger/*.ts",
+        "src/misc/*.ts",
+        "src/streams/*.ts",
+        "src/tasks/*.ts"
     ],
     "out": "docs"
 }
