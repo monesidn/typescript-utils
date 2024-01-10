@@ -55,7 +55,7 @@ jobs:
 
             - name: Publish to NPM
               if: ${{ startsWith(steps.tag-creation.outputs.tag, 'v') }}
-              uses: JS-DevTools/npm-publish@v1
+              uses: JS-DevTools/npm-publish@v3
               with:
                   access: public
                   token: ${{ secrets.NPM_TOKEN }}
